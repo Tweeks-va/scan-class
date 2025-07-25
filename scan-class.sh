@@ -1,5 +1,7 @@
 #!/bin/bash
 ## scan-class.sh
+## By tweeks@virginiacyberrange.org (CC 4.0 BY SAA NC)
+## https://github.com/Tweeks-va/scan-class/tree/main
 
 web=0
 nc=0
