@@ -6,8 +6,19 @@ nc=0
 firewall=0
 ports=""
 MYNUM=""
-
 nmapoptions=' -Pn -T4 '
+
+
+if [ "$1" == "" ] ; then
+	echo "Usage: $(basename $0) -w(reqd) [-n] [-f] host1 host2 ..."
+	echo "-w for scanning student's VM [-w]eb site"
+	echo "-n for scanning student's VM [-n]etcat listenter"
+	echo "-f for scanning student's VM [-f]irewall blocking ports 22, 53, 3389"
+	echo
+fi
+
+
+
 
 
 ## Parse Options
@@ -70,7 +81,7 @@ echo "### PRE LOOP STATUS ###"
 HOSTS=$(echo $@  | sed -e 's/\-[a-z]* //g')
 echo HOSTS=$HOSTS
 echo ports=$ports
-#echo
+echo ; echo
 
 
 for h in $HOSTS; do
@@ -89,7 +100,7 @@ for h in $HOSTS; do
 	if [ $nc == true ] ; then
 		echo "## NMAP PORT SCAN + MYNUM- $h"
 		echo "nmap $nmapoptions -p $(echo $ports,$MYNUM|sed -e 's/,,/,/') --open $h"
-		nmap $nmapoptions -p $(echo $ports,$MYNUM|sed -e 's/,,/,/') --open $h | grep -A3 '^PORT'| grep -v ^Nmap
+		nmap $nmapoptions -p $(echo $ports,$MYNUM|sed -e 's/,,/,/') --open $h | grep -A4 '^PORT'| grep -v ^Nmap
 	else
 		echo "## NMAP PORT SCAN - $h"
 		echo "nmap $nmapoptions -p $ports,1 --open $h"

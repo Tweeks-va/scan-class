@@ -1,27 +1,4 @@
-## Scanning:
-
-
-	kali.sierra998.example.com
-	kali.delta650.example.com
-	kali.whiskey402.example.com
-
-kali.sierra998.example.com kali.delta650.example.com kali.whiskey402.example.com
-
-
-## Assign Hosts
-export SYSTEMS='kali.sierra998.example.com kali.delta650.example.com kali.whiskey402.example.com'					
-nmap  --exclude-ports 22,53 -Pn -p 1-1000 -T4 --open  $SYSTEMS | grep -e '^Nmap scan' -e '[0-9]/tcp'																						
-
-
-
-## Web:
-echo "kali.sierra998.example.com
-kali.delta650.example.com
+kali.sierra998.example.com 
+kali.delta650.example.com 
 kali.whiskey402.example.com
-" | xargs -I {} lynx \-dump {}
-
-## Netork/Port
-nmap  -Pn -p 1-1000 -T4 --open -iL: kali.sierra998.example.com
-
-
 
