@@ -60,5 +60,5 @@ PORT    STATE SERVICE
 MAC Address: 02:23:50:2E:63:87 (Unknown)
 ```
 
-More info on Cyber Range [Shared-Networks](https://www.virginiacyberrange.org/courseware?q=Shared%20Networks%20Env:%20Kali%20Desktop)
+More info on the Cyber Range's [Shared-Networks](https://www.virginiacyberrange.org/courseware?q=Shared%20Networks%20Env:%20Kali%20Desktop) Kali VM environment, and more complex [Shared Networks Env: OPNsense Firewall with Multiple Networks](https://www.virginiacyberrange.org/courseware/shared_networks_env_opnsense_firewall_with_multiple_networks_2024_10)
 
