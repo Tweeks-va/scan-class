@@ -1,6 +1,6 @@
 ## scan-class
 
-Simple script for scanning my classroom VMs on the cyber range.  Assumes using "shared networks" with DNS hostnames like
+Simple script for scanning my classroom VMs on the [Virginia Cyber Range](https://www.virginiacyberrange.org/).  This script assumes using "[Kali Shared Networks](https://www.virginiacyberrange.org/courseware/shared_networks_env_kali_desktop_2024_7)" with student DNS hostnames like:
 
 ```
 	kali.sierra998.example.com
@@ -8,9 +8,12 @@ Simple script for scanning my classroom VMs on the cyber range.  Assumes using "
 	kali.whiskey402.example.com
 ```
 
-Usage: scan-class.sh -w(reqd) [-n] [-f] host1 host2 :
+The purpose of the scan-class.sh script is to quickly scan your classroom VMs and report on each student's network assignment results. The scan-class.sh usage is:
+scan-class.sh -w(reqd) [-n] [-f] host1 host2
+
+Here's a usage example and sample results:
 ```
-$ ./scan-class.sh -wn kali.sierra998.example.com kali.delta650.example.com kali.whiskey402.example.com
+$ ./scan-class.sh -wfn kali.sierra998.example.com kali.delta650.example.com kali.whiskey402.example.com
 
 
 ### PRE LOOP STATUS ###
