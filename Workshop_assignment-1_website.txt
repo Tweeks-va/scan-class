@@ -1,0 +1,60 @@
+####################################
+## Assignment #1 -  SET UP WEB PAGE
+####################################
+
+## TASKS:
+## 1) Set up apache to run at boot time
+## 2) Backup the default website's root webpage
+##    to /var/www/html/index.html_BAK
+## 3) Overwrite the contents of apache's root 
+##    webpage with your hostname
+
+## PASS - If yoru VM is rebooted and all three tasks pass
+
+
+
+## Start Aapache & Enable for reboots
+$ sudo systemctl start apache2.service
+$ sudo systemctl enable apache2.service
+$ sudo systemctl status apache2.service | grep "Active:"
+     Active: active (running) since Wed 2025-07-23 01:29:46 UTC; 1min 12s ago
+
+## Ensure it has bound on port 80, and on all v4 & v6 IPs:
+$ sudo netstat -antp|grep ::80
+tcp6       0      0 :::80                   :::*                    LISTEN      13538/apache2 
+
+
+## Examine your hostname:
+$ echo $HOSTNAME
+kali.tango679.example.com
+
+## Examine your default website:
+$ lynx -dump kali.tango679.example.com/index.html | head -2
+   Debian Logo Apache2 Debian Default Page
+   It works!
+
+## Back up your default webpage:
+$ sudo cp -a /var/www/html/index.html /var/www/html/index.html_BAK
+
+## Overwrite Your Webpage with your host name:
+$ sudo bash -c "echo $HOSTNAME > /var/www/html/index.html"
+
+## Re-Examine Website:
+$ lynx -dump kali.tango679.example.com/index.html | head -2
+   kali.tango679.example.com
+
+CONFGIURE:
+sudo systemctl enable apache2.service
+sudo systemctl start apache2.service
+sudo systemctl status apache2.service
+sudo cp -a /var/www/html/index.html /var/www/html/index.html_BAK
+sudo bash -c "echo $HOSTNAME > /var/www/html/index.html"
+lynx -dump localhost/index.html | head -2
+
+
+
+
+
+
+
+

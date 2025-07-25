@@ -1,0 +1,63 @@
+####################################
+## Assignment #2 - Set up Persistant netcat listener 
+####################################
+
+## TASKS:
+## 1) Set up a persistent netcat listener on the port# 
+##    matching the three digits in your hostname.
+##    For example.. if your hostname is
+##    kali.tango679.example.com
+##    Then set up a persistant netcat listener on
+##    port 679, like does the equivilant of this:
+      $ nc -l 679
+	  (but survives reboots)
+	  	  
+## NOTE: Simply running like that will not survive
+## reboots (which you must automate). Either write 
+## a cron job/script to gracefully* keep a nc listener up 
+## and running or write a systemd target, or some such 
+## boot/init script, or write your own systemd service daemon to automate.
+## 
+## * - Gracefully means not attempting to spawning duplicates, generating 
+##     errors, multiple threads, exhausting processes or file handles, 
+##     killing/restarting, generating tons of errors or running something
+##     every minute (less frequent that every minute us acceptable). If
+##     writing a cronjob, here's a decent guid to doign cronjobs well:
+##	   https://phoenixnap.com/kb/set-up-cron-job-linux
+##
+## TIP:If you want to ensure your netcat is working, try using 
+##	   "netstat -ant | grep :679" to test to see if it's running/working.
+
+## PASS - If I'm able to reboot your system, wait for things to settle 
+## (at least 3minutes), then scan & see your netcat/number listener,
+## all  with no manual intervention.
+##
+## EXTRA CREDIT: If you follow this guide and write/impliment 
+## a systemd based daemon with appropriate target that passes 
+## above. Must submit your systemd "netcat-listener.service".
+## A good reference for writing a decent systemd unit/service file
+## is here - https://linuxhandbook.com/create-systemd-services/
+
+## TEACHER NOTES:
+## Simple crontab (set up by student user using "crontab -e"
+## This contab one liner that checks if nc is bound/visible, 
+## if not, starts it, and does this every other minute to ensure
+## availability:
+
+*/2 * * * * export MYNUM=998 ; if $(netstat \-antp 2>/dev/null| grep $MYNUM > /dev/null) ; then  echo LISTENER alreayd running on $MYNUM.. EXITING; else echo LISTENTER NOT running.. STARTING NOW; nc -l $MYNUM  ; fi 2>&1 > /dev/null
+
+CONFIGURE:
+export MYNUM=$(echo $HOSTNAME | grep -o '[0-9][0-9][0-9]' 2>/dev/null)
+crontab -e
+2
+i
+*/2 * * * * export MYNUM=$(echo $HOSTNAME | grep -o '[0-9][0-9][0-9]' 2>/dev/null) ; if $(netstat \-antp 2>/dev/null| grep $MYNUM > /dev/null) ; then  echo LISTENER alreayd running on $MYNUM.. EXITING; else echo LISTENTER NOT running.. STARTING NOW; nc -l $MYNUM  ; fi 2>&1 > /dev/null
+
+Background:
+*/2 * * * * export MYNUM=$(echo $HOSTNAME | grep -o '[0-9][0-9][0-9]' 2>/dev/null) ; if $(netstat \-antp 2>/dev/null| grep $MYNUM > /dev/null) ; then  echo LISTENER alreayd running on $MYNUM.. EXITING; else echo LISTENTER NOT running.. STARTING NOW; nc -l $MYNUM &  ; fi 2>&1 > /dev/null
+
+
+WORKING:
+*/2 * * * * export MYNUM=998 ; if $(netstat \-antp 2>/dev/null| grep $MYNUM > /dev/null) ; then  echo LISTENER alreayd running on $MYNUM.. EXITING; else echo LISTENTER NOT running.. STARTING NOW; nc -l $MYNUM  ; fi 2>&1 > /dev/null
+
+
